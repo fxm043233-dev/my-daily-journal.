@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101827" />
+  <title>My Daily Journal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">MJ</div><div><strong>MY JOURNAL</strong><small>Routine · Habits · Trading</small></div></div>
+      <nav class="nav">
+        <button class="nav-link active" data-view="dashboard">▦ <span>Dashboard</span></button>
+        <button class="nav-link" data-view="journal">▤ <span>Daily journal</span></button>
+        <button class="nav-link" data-view="habits">✓ <span>Habit tracker</span></button>
+        <button class="nav-link" data-view="trading">↗ <span>Trading tracker</span></button>
+        <button class="nav-link" data-view="history">◷ <span>History & backup</span></button>
+      </nav>
+      <div class="sidebar-note"><span class="live-dot"></span> Your data is saved in this browser.</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><p class="eyebrow" id="todayLabel">YOUR PERSONAL WORKSPACE</p><h1 id="pageTitle">Dashboard</h1></div>
+        <div class="top-actions"><input type="date" id="selectedDate" aria-label="Select journal date" /><button class="icon-btn" id="exportBtn" title="Export backup">⇩</button></div>
+      </header>
+
+      <section class="view active" id="dashboardView">
+        <div class="welcome-card">
+          <div><p class="eyebrow light">ONE DAY AT A TIME</p><h2>Build discipline.<br><span>Track your progress.</span></h2><p>Small actions, repeated daily, create big results.</p></div>
+          <div class="welcome-date"><span id="welcomeDay">MON</span><strong id="welcomeDate">02</strong><span id="welcomeMonth">NOVEMBER</span></div>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><span class="stat-icon purple">✓</span><p>Habits completed</p><strong id="dashHabits">0/0</strong><small id="dashHabitPercent">0% completed today</small></article>
+          <article class="stat-card"><span class="stat-icon blue">▤</span><p>Journal status</p><strong id="dashJournal">Not started</strong><small>Today's reflection</small></article>
+          <article class="stat-card"><span class="stat-icon green">↗</span><p>Trades recorded</p><strong id="dashTrades">0</strong><small id="dashWinRate">No results yet</small></article>
+          <article class="stat-card"><span class="stat-icon amber">₦</span><p>Net trading P/L</p><strong id="dashPL">0.00</strong><small>For selected date</small></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">YOUR ROUTINE</p><h3>Today's habits</h3></div><button class="text-btn" data-goto="habits">View all →</button></div><div id="dashboardHabitList" class="habit-mini-list"></div></article>
+          <article class="panel quote-panel"><p class="eyebrow">DAILY REMINDER</p><div class="quote-mark">“</div><h3>Protect your process, not just your profit.</h3><p>Follow your rules. Record the truth. Improve one day at a time.</p><div class="quote-line"></div><small>YOUR DAILY STANDARD</small></article>
+        </div>
+        <article class="panel quick-panel"><div class="panel-heading"><div><p class="eyebrow">KEEP MOVING</p><h3>Quick actions</h3></div></div><div class="quick-actions"><button data-goto="journal"><span>＋</span><div><strong>Write today's journal</strong><small>Goals, wins and lessons</small></div><b>→</b></button><button data-goto="habits"><span>✓</span><div><strong>Check your habits</strong><small>Keep your streak alive</small></div><b>→</b></button><button data-goto="trading"><span>↗</span><div><strong>Log a trade</strong><small>Track results and discipline</small></div><b>→</b></button></div></article>
+      </section>
+
+      <section class="view" id="journalView">
+        <div class="section-intro"><div><p class="eyebrow">REFLECT WITH PURPOSE</p><h2>Daily journal</h2><p>Be honest about how you used your time today.</p></div><button class="primary-btn" id="saveJournalBtn">Save journal</button></div>
+        <form id="journalForm" class="panel form-panel">
+          <div class="form-grid">
+            <label class="full">Top 3 priorities<textarea id="jGoals" rows="3" placeholder="1. What matters most today?&#10;2. What must get done?&#10;3. What will move you forward?"></textarea></label>
+            <label>Wake-up time<input id="jWake" type="time" /></label>
+            <label>Bedtime target<input id="jBed" type="time" /></label>
+            <label class="full">What did I accomplish?<textarea id="jWins" rows="3" placeholder="Record the progress you made..."></textarea></label>
+            <label class="full">What could I improve?<textarea id="jImprove" rows="3" placeholder="What did not go as planned?"></textarea></label>
+            <label class="full">Mood and energy<select id="jMood"><option value="">Choose how you felt</option><option>Focused</option><option>Calm</option><option>Motivated</option><option>Tired</option><option>Stressed</option><option>Distracted</option></select></label>
+            <label class="full">Lesson of the day<textarea id="jLesson" rows="3" placeholder="One thing you learned today..."></textarea></label>
+            <label class="full">Tomorrow's first action<textarea id="jTomorrow" rows="2" placeholder="The first useful thing you will do tomorrow..."></textarea></label>
+          </div>
+          <div class="save-row"><span id="journalSaveStatus">Your journal saves on this device.</span><button class="primary-btn" type="submit">Save journal</button></div>
+        </form>
+      </section>
+
+      <section class="view" id="habitsView">
+        <div class="section-intro"><div><p class="eyebrow">CONSISTENCY OVER PERFECTION</p><h2>Habit tracker</h2><p>Tick each habit when you complete it for the selected date.</p></div><button class="primary-btn" id="addHabitBtn">＋ Add habit</button></div>
+        <div class="habit-summary panel"><div><span class="eyebrow">DAILY COMPLETION</span><strong id="habitBigPercent">0%</strong><p id="habitSummaryText">Start with one small win.</p></div><div class="progress-wrap"><div class="progress-track"><div id="habitProgress" class="progress-fill"></div></div><small id="habitFraction">0 of 0 habits</small></div></div>
+        <div id="habitList" class="habit-list"></div>
+        <div class="panel tip-panel"><strong>Remember:</strong> A missed day is information, not failure. Restart with the next habit.</div>
+      </section>
+
+      <section class="view" id="tradingView">
+        <div class="section-intro"><div><p class="eyebrow">PROCESS BEFORE PROFIT</p><h2>Trading tracker</h2><p>Record your trades and whether you followed your plan.</p></div><button class="primary-btn" id="addTradeBtn">＋ Log a trade</button></div>
+        <div class="stats-grid trade-stats">
+          <article class="stat-card"><p>Trades today</p><strong id="tradeCount">0</strong><small>Closed trades logged</small></article>
+          <article class="stat-card"><p>Win rate</p><strong id="tradeWinRate">0%</strong><small id="tradeRecord">0 wins · 0 losses</small></article>
+          <article class="stat-card"><p>Net P/L</p><strong id="tradeNet">0.00</strong><small>Based on results entered</small></article>
+          <article class="stat-card"><p>Plan followed</p><strong id="tradeDiscipline">0%</strong><small>Trades that followed rules</small></article>
+        </div>
+        <div class="panel table-panel"><div class="panel-heading"><div><p class="eyebrow">TRADE LOG</p><h3>Selected day's trades</h3></div><span class="muted" id="tradeDateLabel"></span></div><div id="tradeList" class="trade-list"></div></div>
+        <p class="disclaimer">This is a journal, not a signal service. Review your risk rules before placing a trade.</p>
+      </section>
+
+      <section class="view" id="historyView">
+        <div class="section-intro"><div><p class="eyebrow">YOUR RECORDS, YOUR CONTROL</p><h2>History & backup</h2><p>Review past journal entries and keep a backup of your data.</p></div><button class="primary-btn" id="exportBtn2">Export JSON</button></div>
+        <div class="panel"><div class="panel-heading"><div><p class="eyebrow">PAST JOURNALS</p><h3>Saved days</h3></div><span class="muted">Newest first</span></div><div id="historyList" class="history-list"></div></div>
+        <div class="panel backup-panel"><div><h3>Backup or restore</h3><p>Export a JSON backup regularly. Import it to restore your journal on this browser. Importing replaces the current saved data.</p></div><div class="backup-actions"><button class="secondary-btn" id="exportBtn3">Export backup</button><label class="secondary-btn file-label">Import backup<input type="file" id="importFile" accept=".json,application/json" hidden /></label></div></div>
+        <p class="disclaimer">Your information is stored locally in this browser. It does not automatically sync to another device or browser. Export a backup before clearing browser data.</p>
+      </section>
+      <footer>MY DAILY JOURNAL <span>·</span> Built for consistency, not perfection.</footer>
+    </main>
+  </div>
+
+  <dialog id="habitDialog"><form method="dialog" id="habitModalForm" class="modal-form"><div class="modal-head"><div><p class="eyebrow">CUSTOMIZE YOUR ROUTINE</p><h3 id="habitModalTitle">Add a habit</h3></div><button class="close-btn" value="cancel" aria-label="Close">×</button></div><label>Habit name<input id="habitNameInput" required maxlength="60" placeholder="e.g. Read for 20 minutes" /></label><label>Category<select id="habitCategoryInput"><option>Faith</option><option>Health</option><option>Learning</option><option>Trading</option><option>Personal</option><option>Work</option></select></label><div class="modal-actions"><button class="secondary-btn" value="cancel">Cancel</button><button class="primary-btn" id="saveHabitModal" value="default">Save habit</button></div></form></dialog>
+
+  <dialog id="tradeDialog"><form method="dialog" id="tradeModalForm" class="modal-form"><div class="modal-head"><div><p class="eyebrow">RECORD THE FACTS</p><h3>Log a trade</h3></div><button class="close-btn" value="cancel" aria-label="Close">×</button></div>
+    <div class="form-grid">
+      <label>Pair / instrument<input id="tPair" required placeholder="EURUSD, GBPUSD, NAS100..." /></label>
+      <label>Session<select id="tSession"><option>London</option><option>New York</option><option>Asia</option><option>Other</option></select></label>
+      <label>Direction<select id="tDirection"><option>Buy</option><option>Sell</option></select></label>
+      <label>Result<select id="tResult"><option value="win">Win</option><option value="loss">Loss</option><option value="breakeven">Breakeven</option></select></label>
+      <label>Entry price<input id="tEntry" placeholder="Optional" /></label>
+      <label>Stop loss<input id="tSL" placeholder="Optional" /></label>
+      <label>Take profit<input id="tTP" placeholder="Optional" /></label>
+      <label>Net P/L (account currency)<input id="tPL" type="number" step="0.01" required value="0" /></label>
+      <label>Risk amount (optional)<input id="tRisk" type="number" step="0.01" min="0" placeholder="0.00" /></label>
+      <label>Followed my plan?<select id="tFollowed"><option value="yes">Yes</option><option value="no">No</option></select></label>
+      <label class="full">Emotion / mindset<input id="tEmotion" placeholder="Calm, fearful, impatient..." /></label>
+      <label class="full">Lesson from this trade<textarea id="tLesson" rows="2" placeholder="What did you do well or learn?"></textarea></label>
+    </div><div class="modal-actions"><button class="secondary-btn" value="cancel">Cancel</button><button class="primary-btn" id="saveTradeModal" value="default">Save trade</button></div>
+  </form></dialog>
+  <div id="toast" role="status" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
